@@ -1,0 +1,9 @@
+{
+    "eventName": "postGoogle",
+    "url": "https://script.google.com/macros/s/******************************/exec",
+    "requestType": "POST",
+    "json": {
+        "payload": "{{SPARK_EVENT_VALUE}}"
+    },
+    "mydevices": true
+}

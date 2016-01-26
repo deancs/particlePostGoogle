@@ -1,0 +1,45 @@
+
+// This #include statement was automatically added by the Particle IDE.
+#include "SHT1x/SHT1x.h"
+
+#define dataPin  D0
+#define cPin D1
+
+SHT1x sht1x(dataPin, cPin);
+
+// globals
+long sleepTime = 600; //secomds, ie 10 minutes
+void startAquire(void);
+float temp;
+float humid;
+char payload[128] = "";
+bool success;
+
+
+void setup() {
+    startAquire();
+}
+
+void loop() {
+}
+
+void startAquire() {
+    
+    temp = sht1x.readTemperatureC();
+    humid = sht1x.readHumidity();
+
+    sprintf(payload,"{\"temp\":%.1f,\"hum\":%.1f}", temp, humid);
+    
+    success = Particle.publish("postGoogle", payload);
+
+    if (!success) {
+        System.sleep(30);
+        Particle.publish("postGoogle", payload);
+        System.reset();        
+    }
+
+    delay(1000);
+    System.sleep(SLEEP_MODE_DEEP, sleepTime);
+
+}
+
