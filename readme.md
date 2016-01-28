@@ -32,16 +32,18 @@ The current implementation does not authenticate post requests. As a result the 
 
 ##Setup / Configuration
 
-###Google Setup
+###Google Setup.
 1. Create a google sheet
 2. Select tools \ script-editor
 3. Paste the contents of postGoogle.gs into the edit window
-4. Select and copy the 44 byte unique ID from the sheets URL and paste it into the errSheetID and logSheetID variables within the script
+4. Select and copy the 44 byte unique ID from the sheets URL and paste it into the errSheetID and logSheetID variables within the script. Note a separate log workbook can be used, BetterLog creates a 'Log' tab in which errors are written.
 5. Paste your particle security token into the particleToken variable. This is needed to retrieve the device-name as only device/code-id is included within the webhook.
 6. Within the editor save changes and then select Publish \ Deploy as WebApp
 7. Copy the the web app URL
 8. Change the project version to new, to make future changes live you must always select new version, ie whilst you can republish an old version the changes do not become active.
 9. Change who has access to anyone even anonymous and select update. 
+
+Note the AppScript and GoogleSheet can be separated where required. This will be a requirement when logging to device specific workbooks is implemented.
 
 ###Create Particle webhook
 1. Update the postgoogle.json URL value to be the URL value from step 6 above
