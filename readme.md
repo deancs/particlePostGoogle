@@ -2,13 +2,13 @@
 Google AppScript to create REST API End Point to allow Particle Publish and Webhook to update Google Sheet.
 
 ## Context
-There already exists a number of tecniques to push/pull particle.io data to Google sheets. The popular push method is IFTTT which allows Particle Publish request to be posted to google however the payload from the entire particle device message is placed into a single cell. A number of pull methods have been developed in google AppScript however these pull particle variables based on certain triggers all which require the particle device to be online & connected in order to retrieve data. 
+There already exists a number of tecniques to push/pull particle.io data to Google sheets. The popular push method is IFTTT which allows Particle Publish request to be posted to google however the entire payload from the particle device message is placed into a single cell. A number of pull methods have also been developed in google AppScript however these pull particle variables based on certain triggers all which require the particle device to be online & connected in order to retrieve data. 
 
-This implements a RESTful POST web-service within Google AppScript which allows Particle WebHooks to push data based on Particle-publish events and provides some control over how the data is positioned within the Google Sheet. As a result devices can publish and go offline (sleep) whilst particle and google cloud services handle data logging.
+This implements a RESTful POST web-service within Google AppScript which allows Particle WebHooks to push data based on Particle-publish events and places the data-field values into individual cells within the Google Sheet. As a result devices can publish and go offline (sleep) whilst particle and google cloud services log the data.
 
 ##Design Approach
 
-The implementation is self describing, meaning that once setup a new device should be able to publish its payload and the logging script automatically creates the log specific to the device. The current implementation retrieves the device-name, creates a worksheet/tab for each device and uses the json keys within the payload to create column headings.
+The implementation is self describing, meaning that once a new device is setup should be able to publish its payload and the logging script automatically creates the log specific to the device. The current implementation retrieves the device-name, creates a worksheet/tab for each device and uses the json keys within the payload to create column headings.
 
 ##Prerequisities
 
@@ -37,10 +37,11 @@ The current implementation does not authenticate post requests. As a result the 
 2. Select tools \ script-editor
 3. Paste the contents of postGoogle.gs into the edit window
 4. Select and copy the 44 byte unique ID from the sheets URL and paste it into the errSheetID and logSheetID variables within the script
-5. Within the editor select Publish \ Deploy as WebApp
-6. Copy the the web app URL
-7. Change the project version to new, to make future changes live you must always select new version, ie whilst you republish an old version the changes do not become active.
-8. Change who has access to anyone even anonymous and select update. 
+5. Paste your particle security token into the particleToken variable. This is needed to retrieve the device-name as only device/code-id is included within the webhook.
+6. Within the editor save changes and then select Publish \ Deploy as WebApp
+7. Copy the the web app URL
+8. Change the project version to new, to make future changes live you must always select new version, ie whilst you can republish an old version the changes do not become active.
+9. Change who has access to anyone even anonymous and select update. 
 
 ###Create Particle webhook
 1. Update the postgoogle.json URL value to be the URL value from step 6 above
