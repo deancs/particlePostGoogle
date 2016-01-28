@@ -46,7 +46,7 @@ The current implementation does not authenticate post requests. As a result the 
 Note the AppScript and GoogleSheet can be separated where required. This will be a requirement when logging to device specific workbooks is implemented.
 
 ###Create Particle webhook
-1. Update the postgoogle.json URL value to be the URL value from step 6 above
+1. Update the postgoogle.json URL value to be the URL value from step 7 above
 2. using the particle CLI create the webhook: particle webhook create postgoogle.json
 
 ###Device
